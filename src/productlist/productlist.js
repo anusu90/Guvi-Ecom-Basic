@@ -7,12 +7,12 @@ export default class ProductList extends React.Component {
         return (
             <div className="col-lg-9">
                 <div className="row">
-                    <Product></Product>
-                    <Product></Product>
-                    <Product></Product>
-                    <Product></Product>
-                    <Product></Product>
-                    <Product></Product>
+                    {
+                        this.props.productList.map((product) => {
+                            let index = this.props.cartItems.map(i => i.id).indexOf(product.id);
+                            return <Product product={product} isDisabled={(index > -1) ? true : false} updateCart={this.props.updateCart} />
+                        })
+                    }
                 </div>
             </div>
 

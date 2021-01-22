@@ -1,29 +1,38 @@
 import React, { useState } from 'react'
 
 export default class Cart extends React.Component {
+
+    removeItem = (e) => {
+
+        let productIdToRemove = e.target.value
+        this.props.removeCart(productIdToRemove)
+    }
+
     render() {
         return (
-            <div class="col-lg-3">
 
-                <h1 class="my-4">Shop Name</h1>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Cras justo odio
-                        <button className="btn btn-primary btn-circle-sm" > X </button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Dapibus ac facilisis in
-    <button className="btn btn-primary btn-circle-sm" > X </button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Morbi leo risus
-    <button className="btn btn-primary btn-circle-sm" > X </button>
-                    </li>
+            <div className="col-lg-3">
+
+                <h1 className="my-4">Shop Name</h1>
+                <ul className="list-group">
+                    {
+                        this.props.cartItems.map((cartItem) => {
+                            return (
+
+                                <li className="list-group-item d-flex justify-content-between align-items-center">
+                                    {cartItem.name} ---- {cartItem.currency}{cartItem.price}
+                                    <button className="btn btn-primary btn-circle-sm" onClick={this.removeItem} value={cartItem.id}> X </button>
+                                </li>
+                            )
+                        })
+                    }
+
                 </ul>
 
-                <h1> Total 0 </h1>
+                <h2> Total ${this.props.total} </h2>
 
             </div>
+
 
         )
     }
